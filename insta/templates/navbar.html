@@ -1,19 +1,26 @@
+{%load static%}
 <div class="navbar fixed-top bg-white">
     <nav class="container">
         <span class="navbar-brand mb-0 h1">
             <a href="/">
-                <div id="brand" class="instaicon logo d-none d-sm-block"></div>
-                <div class="instaicon mainicon d-block d-sm-none"></div>
+                <div id="brand"><img src="{% static 'images/instaLogo.png' %}"></div>
             </a>
         </span>
-        <form class="mb-0 h1 ml-auto mr-auto" id="searchform" action="">
-            <input name="search_user" autocomplete="off" id="searching" class="form-control d-none d-md-block" placeholder="Search">
-            <i class="spinner "></i>
+        <form class="mb-0 ml-auto mr-auto" id="searchform" action="">
+
+            <div class="input-group">
+                <input class="form-control py-2 border-right-0 border" type="search" value="search" id="searching">
+                <span class="input-group-append">
+                    <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
+                </span>
+            </div>
         </form>
-        <span class="pull-right">
-            <div class="instaicon disc"></div>
-            <div class="instaicon like"></div>
-            <a href="" class="instaicon pers"></a>
+
+        <span class="pull-right icons">
+            <i class="fa fa-home"></i>
+            <i class="far fa-compass" aria-hidden="true"></i>
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+            <i class="far fa-user-circle"></i>
         </span>
     </nav>
 </div>
