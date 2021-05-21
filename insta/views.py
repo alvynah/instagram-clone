@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def welcome(request):
-    return HttpResponse("welcome to Intagram")
+    return render(request, 'index.html')
