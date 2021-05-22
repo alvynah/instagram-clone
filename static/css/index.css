@@ -5,3 +5,19 @@ body {
 .index {
     margin-top: 80px !important;
 }
+
+.helptext {
+    display: none;
+}
+
+.errorlist {
+    margin: 0;
+    padding: 0;
+}
+
+.errorlist ul li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
