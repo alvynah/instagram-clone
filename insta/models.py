@@ -15,3 +15,8 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+class Comment(models.Model):
+    comment = models.TextField()
+    post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
+    user=models.ForeignKey(Profile,related_name='comments',on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
