@@ -20,3 +20,6 @@ class Comment(models.Model):
     post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
     user=models.ForeignKey(Profile,related_name='comments',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+class Follow(models.Model):
+    follower=models.ForeignKey(Profile,related_name='followers',on_delete=models.CASCADE)
+    followed=models.ForeignKey(Profile,related_name='followed',on_delete=models.CASCADE)
