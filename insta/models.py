@@ -64,9 +64,9 @@ class Post(models.Model):
         '''
         self.delete()
 
-    @property
+    
     def num_liked(self):
-        return self.likes.all().count()
+        return self.likes.count()
 
     
 

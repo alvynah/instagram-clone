@@ -1,7 +1,9 @@
+from django.http.response import Http404
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.urls.base import reverse
 from .forms import *
 from django.contrib import messages
 from .models import Post, Comment, Profile, Follow
@@ -74,3 +76,20 @@ def comment(request,post_id):
         'comments': comments,
     }
         return render(request, 'instagram/comment.html',params)
+def like_post(request,post_id):
+    post = Post.objects.get(pk=post_id)
+    is_liked=False
+    user=request.user.profile
+    try:
+        profile=Profile.objects.get(user=user.user)
+        print(profile)
+
+    except Profile.DoesNotExist:
+        raise Http404()
+    if post.likes.filter(id=user.user.id).exists():
+        post.likes.remove(user.user)
+        is_liked=False
+    else:
+        post.likes.add(user.user)
+        is_liked=True
+    return HttpResponseRedirect(reverse('welcome'))

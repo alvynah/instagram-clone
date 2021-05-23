@@ -6,7 +6,9 @@ from . import views
 urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('', views.welcome, name='welcome'),
-    path('comment/<post_id>', views.comment, name='comment'),    
+    path('comment/<post_id>', views.comment, name='comment'),
+    re_path('like/(?P<post_id>\d+)',views.like_post,name='LikePost'),
+    
 
    
 

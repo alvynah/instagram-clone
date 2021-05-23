@@ -34,11 +34,16 @@
 {%for post in posts%}
 <h1>{{post.title}}</h1>
 <h1>{{post.description}}</h1>
-<h1>{{post.likes.count}}</h1>
+<h1>{{post.likes.count}} likes</h1>
 <h1>{{post.user.user.username}}</h1>
 <h1>{{post.created_at}}</h1>
 
 <img src="{{post.image.url}}" class="card-img" style="width:200px;height:200px;">
+<form action="{% url 'LikePost' post_id=post.id %}">
+    {% csrf_token %}
+    <button type="submit" name="post_id" value={{post.id}} style="border: 0px; background-color: transparent; margin-bottom: 1rem;"><i class="far fa-heart"></i></button>
+</form>
+
 <button class="btn btn-sm" type="submit"><a href="{% url 'comment' post_id=post.id %}"><i
             class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
     </a></button> {% for comment in post.comments.all %}
