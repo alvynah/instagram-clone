@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib import messages
 from .models import Post, Comment, Profile, Follow
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
+
 
 
 
@@ -47,3 +49,5 @@ def welcome(request):
         form=UploadImageForm()
     return render(request, 'instagram/index.html',{'posts':posts,'form':form,'users':users})
 
+def logout_view(request):
+    logout(request,"welcome.html")

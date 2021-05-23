@@ -21,6 +21,10 @@
             <i class="far fa-compass" aria-hidden="true"></i>
             <i class="fa fa-heart-o" aria-hidden="true"></i>
             <i class="far fa-user-circle"></i>
-        </span>
+        </span> {% if user.is_authenticated %}
+        <button>
+            <a href="/logout">Logout</a>
+        </button> {% else %}
+        <a class='btn btn-default' href="/accounts/login">Login</a> {% endif %}
     </nav>
 </div>
