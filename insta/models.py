@@ -34,6 +34,9 @@ class Profile(models.Model):
     @classmethod
     def search_profile(cls, name):
         return cls.objects.filter(user__username__icontains=name).all()
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
 
 class Post(models.Model):
     image = models.ImageField(upload_to='posts/')
@@ -47,7 +50,7 @@ class Post(models.Model):
         '''
         Class method to display images by date published
         '''
-        ordering = ['created_at']
+        ordering = ["-pk"]
 
     def save_image(self):
         '''
