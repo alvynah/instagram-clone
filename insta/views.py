@@ -51,3 +51,26 @@ def welcome(request):
 
 def logout_view(request):
     logout(request,"welcome.html")
+
+@login_required(login_url='/accounts/login/')
+def comment(request,post_id):
+        current_user=request.user.profile
+        post = Post.objects.get(id=post_id)
+        user_profile = User.objects.get(username=current_user.user)
+        comments = Comment.objects.all()
+        if request.method == 'POST':
+                form = CommentForm(request.POST, request.FILES)
+                if form.is_valid():
+                        comment = form.save(commit=False)
+                        comment.post = post
+                        comment.user = request.user.profile
+                        comment.save()  
+                return redirect('welcome')
+        else:
+                form = CommentForm()
+        params = {
+        'post': post,
+        'form': form,
+        'comments': comments,
+    }
+        return render(request, 'instagram/comment.html',params)

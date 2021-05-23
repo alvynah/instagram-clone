@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('', views.welcome, name='welcome'),
+    path('comment/<post_id>', views.comment, name='comment'),    
+
    
 
     

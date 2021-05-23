@@ -37,7 +37,15 @@
 <h1>{{post.likes.count}}</h1>
 <h1>{{post.user.user.username}}</h1>
 <h1>{{post.created_at}}</h1>
-<img src="{{post.image.url}}" class="card-img" style="width:200px;height:200px;"> {%endfor%}
+
+<img src="{{post.image.url}}" class="card-img" style="width:200px;height:200px;">
+<button class="btn btn-sm" type="submit"><a href="{% url 'comment' post_id=post.id %}"><i
+            class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
+    </a></button> {% for comment in post.comments.all %}
+<p><strong>{{comment.user.user.username}}:</strong> {{comment.comment}}</p>
+<p>{{comment.created_at | timesince}}</p>
+<hr> {% endfor %} {%endfor%}
+
 
 </div>
 {%endblock %}
