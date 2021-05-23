@@ -1,4 +1,4 @@
-{% extends 'instagram/base.html' %} {% block content %}{{block.super}}
+{% extends 'instagram/base.html' %}{% load crispy_forms_tags %} {% block content %}{{block.super}}
 <div class="row index">
     <div class="col-md-1"></div>
     <div class="col-md-7">
@@ -17,11 +17,9 @@
                         </div>
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" novalidate>
-                                {% csrf_token %} {{ form }}
+                                {% csrf_token %} {{ form|crispy }}
                                 <button class="btn btn-sm btn-success">Upload</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
-                                    Close
-                                </button>
+
                             </form>
                         </div>
                     </div>
