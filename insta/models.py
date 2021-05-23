@@ -79,6 +79,23 @@ class Comment(models.Model):
     post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
     user=models.ForeignKey(Profile,related_name='comments',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = cls.objects.filter(post__id=id)
+        return comments
+
+    def __str__(self):
+        return self.comment
+    class Meta:
+        ordering=["-pk"]
+
 class Follow(models.Model):
     follower=models.ForeignKey(Profile,related_name='followers',on_delete=models.CASCADE)
     followed=models.ForeignKey(Profile,related_name='followed',on_delete=models.CASCADE)

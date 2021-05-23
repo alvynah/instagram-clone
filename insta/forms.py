@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post,Profile 
+from .models import Post,Profile,Comment 
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254)
@@ -15,6 +15,16 @@ class UploadImageForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('image','title', 'description') 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['post','user']
+
+    class Meta:
+        model = Comment
+        fields = ('comment',)
+
 
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
