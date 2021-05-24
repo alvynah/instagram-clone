@@ -8,6 +8,9 @@ urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('comment/<post_id>', views.comment, name='comment'),
     re_path('like/(?P<post_id>\d+)',views.like_post,name='LikePost'),
+    re_path(r'^search/', views.search_results,name='search_results'),
+    path('profile/<username>/', views.profile, name='profile'),
+
     
 
    

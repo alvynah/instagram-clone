@@ -93,3 +93,37 @@ def like_post(request,post_id):
         post.likes.add(user.user)
         is_liked=True
     return HttpResponseRedirect(reverse('welcome'))
+
+@login_required
+def search_results(request):
+    if 'search_profile' in request.GET and request.GET["search_profile"]:
+        search_term = request.GET.get("search_profile")
+        searched_profiles = Profile.search_profile(search_term)
+        print(searched_profiles)
+        message = f"{search_term}"
+        return render(request, 'instagram/search_results.html', {"message":message,"profiles": searched_profiles})
+    else:
+        message = "You haven't searched for any profile"
+    return render(request, 'instagram/search_results.html', {'message': message})
+
+@login_required()
+def profile(request, username):
+    posts = request.user.profile.posts.all()
+    
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and prof_form.is_valid():
+            user_form.save()
+            prof_form.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        prof_form = UpdateUserProfileForm(instance=request.user.profile)
+    params = {
+        'user_form': user_form,
+        'prof_form': prof_form,
+        'posts': posts,
+
+    }
+    return render(request, 'instagram/profile.html', params)

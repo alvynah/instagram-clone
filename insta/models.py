@@ -11,7 +11,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
     name=models.CharField(max_length=50)
     bio=models.TextField(max_length=500,blank=True)
-    profile_pic=models.ImageField(upload_to='pictures/')
+    profile_pic=models.ImageField(upload_to='pictures/',default='default.png')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -32,8 +32,8 @@ class Profile(models.Model):
         self.delete()
 
     @classmethod
-    def search_profile(cls, name):
-        return cls.objects.filter(user__username__icontains=name).all()
+    def search_profile(cls, search_term):
+        return cls.objects.filter(user__username__icontains=search_term).all()
     def __str__(self):
         return f'{self.user.username} Profile'
 
@@ -99,3 +99,4 @@ class Comment(models.Model):
 class Follow(models.Model):
     follower=models.ForeignKey(Profile,related_name='followers',on_delete=models.CASCADE)
     followed=models.ForeignKey(Profile,related_name='followed',on_delete=models.CASCADE)
+
