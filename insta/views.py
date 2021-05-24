@@ -166,5 +166,18 @@ def user_profile(request, username):
         'follow_status': follow_status,
         'profile1':profile1,
     }
-    print(followers)
     return render(request, 'instagram/updated_profile.html', params)
+
+def follow(request,follow):
+    if request.method == 'GET':
+        user_follow=Profile.objects.get(pk=follow)
+        follow_user=Follow(follower=request.user.profile, followed=user_follow)
+        follow_user.save()
+        return redirect('user_profile',user_follow.user.username)
+def unfollow(request,unfollow):
+    if request.method=='GET':
+        user_unfollow=Profile.objects.get(pk=unfollow)
+        unfollow_user=Follow.objects.filter(follower=request.user.profile,followed=user_unfollow)
+        unfollow_user.delete()
+        return redirect('user_profile',user_unfollow.user.username)
+    

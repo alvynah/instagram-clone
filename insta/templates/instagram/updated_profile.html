@@ -12,7 +12,10 @@
                     <div class="col-md-6 mt-3">
                         <div class="media-body">
                             <div class="account-heading">
-                                <span class="mr-3 text-secondary username">{{ user_prof.username }}</span>
+                                <span class="mr-3 text-secondary username">{{ user_prof.username }}</span> {% if follow_status %}
+                                <a class="btn btn-sm btn-outline-danger ml-5" href="{% url 'unfollow' user_prof.profile.id %}">Unfollow</a> {%else%}
+
+                                <a class="btn btn-sm btn-primary ml-5" href="{% url 'follow' user_prof.profile.id %}">Follow</a> {% endif %}
                             </div>
                         </div>
 
