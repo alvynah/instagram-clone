@@ -29,15 +29,18 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-sm" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade bd-example-modal-sm  " id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>
                     <div class="modal-body">
                         <a class="D-block mx-auto" href="">Change Password</a>
                         <hr>
                         <a class="D-block mx-auto" href="/logout">Logout</a>
-                        <hr>
-                        <a class="D-block mx-auto" href="" data-dismiss="modal">Close</a>
                     </div>
 
                 </div>
@@ -45,11 +48,21 @@
         </div>
         <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md ">
+
                 <div class="modal-content">
-                    <form action="{% url 'profile' user.username %}" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
-                        {% csrf_token%} {{ user_form|crispy}} {{ profile_form|crispy}}
-                        <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
-                    </form>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center "> Upload profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body updateForm">
+                        <form action="{% url 'profile' user.username %}" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
+                            {% csrf_token%} {{ user_form}} {{ profile_form}}
+                            <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>

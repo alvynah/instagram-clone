@@ -20,3 +20,20 @@ a.btn.btn-sm.editProfile.mr-3 {
     background-color: transparent;
     border: 1px solid grey;
 }
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.911)
+}
+
+.updateForm form {
+    width: 80%;
+    padding: 20px;
+    padding-top: 0 !important;
+    border-radius: 6px;
+    float: center;
+    align-items: center;
+    font-size: 16px;
+    font-style: bold;
+    margin-left: 10%;
+    margin-right: 10%;
+}
