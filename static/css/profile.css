@@ -37,3 +37,16 @@ a.btn.btn-sm.editProfile.mr-3 {
     margin-left: 10%;
     margin-right: 10%;
 }
+
+.card-img {
+    height: 500px;
+    width: 100%;
+}
+
+.commentButton {
+    background-color: rgb(16, 182, 248, 0.6) !important;
+}
+
+#overlay i {
+    color: black;
+}

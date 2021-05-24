@@ -70,20 +70,22 @@
     <hr class="mt-4">
     <div class="card-columns cardprofileImages">
         {% for image in posts %}
-        <div class="card" style="width:22rem;">
-            <div class="card-body">
-                <div class="profileImages">
-                    <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img">
-                    <p id="overlay" class="text">
-                        <i class="fas fa-heart" style="font-size: 18"></i>
-                        <span>{{image.likes.count}}</span>
-                        <i class="fas fa-comment ml-4"></i> <span>{{image.comments.count}}</span>
-                    </p>
+        <a href="{% url 'comment' post_id=image.id %}">
+            <div class="card" style="width:22rem;">
+                <div class="card-body">
+                    <div class="profileImages">
+                        <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img">
+                        <p id="overlay" class="text">
+                            <i class="fas fa-heart" style="font-size: 18"></i>
+                            <span>{{image.likes.count}}</span>
+                            <i class="fas fa-comment ml-4"></i> <span>{{image.comments.count}}</span>
+                        </p>
+                    </div>
+
+
                 </div>
-
-
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 </div>

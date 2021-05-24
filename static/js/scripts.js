@@ -12,3 +12,7 @@ $(document).ready(function() {
 
 
 })
+
+document.getElementById('go-back').addEventListener('click', () => {
+    history.back();
+});
