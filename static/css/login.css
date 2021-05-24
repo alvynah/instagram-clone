@@ -16,7 +16,7 @@
     position: absolute;
 }
 
-.loginForm form {
+form {
     width: 80%;
     padding: 20px;
     padding-top: 0 !important;
@@ -34,12 +34,32 @@
     margin-bottom: 1%;
 }
 
-.loginForm label {
+.signupForm input {
+    height: 15px;
+    margin-bottom: 1%;
+}
+
+label {
     margin-top: 1%;
 }
 
-.loginForm button {
+ul.errorlist {
+    color: red;
+}
+
+.card-title {
+    margin-bottom: 1% !important;
+}
+
+.card-body {
+    padding: 2% !important;
+}
+
+.btn {
+    padding: 2% !important;
+}
+
+button {
     width: 100%;
-    padding: 2%;
     background-color: rgb(16, 182, 248, 0.6) !important;
 }
