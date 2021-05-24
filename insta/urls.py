@@ -10,7 +10,7 @@ urlpatterns = [
     re_path('like/(?P<post_id>\d+)',views.like_post,name='LikePost'),
     re_path(r'^search/', views.search_results,name='search_results'),
     path('profile/<username>/', views.profile, name='profile'),
-    path('user_profile/<username>/', views.user_profile, name='user_profile'),
+    path('user_profile/<username>/', views.update_profile, name='user_profile'),
      path('unfollow/<unfollow>', views.unfollow, name='unfollow'),
     path('follow/<follow>', views.follow, name='follow')
 

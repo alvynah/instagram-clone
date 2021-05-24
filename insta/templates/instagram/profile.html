@@ -47,7 +47,7 @@
             <div class="modal-dialog modal-md ">
                 <div class="modal-content">
                     <form action="{% url 'profile' user.username %}" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
-                        {% csrf_token%} {{ user_form|crispy}} {{ prof_form|crispy}}
+                        {% csrf_token%} {{ user_form|crispy}} {{ profile_form|crispy}}
                         <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
                     </form>
                 </div>

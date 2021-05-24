@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse
 from .forms import *
-from django.contrib import messages
 from .models import Post, Comment, Profile, Follow
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
@@ -114,15 +113,15 @@ def profile(request, username):
     posts = request.user.profile.posts.all()
 
     if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
-        prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if user_form.is_valid() and prof_form.is_valid():
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
             user.profile=profile
             user.profile = request.user.profile
             user.save()
 
-            prof = prof_form.save(commit=False)
+            prof = profile_form.save(commit=False)
             prof.profile=profile
             prof.profile = request.user.profile
             prof.save() 
@@ -130,29 +129,29 @@ def profile(request, username):
 
             return HttpResponseRedirect(request.path_info)
     else:
-        user_form = UpdateUserForm(instance=request.user)
-        prof_form = UpdateUserProfileForm(instance=request.user.profile)
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = UserProfileForm(instance=request.user.profile)
     params = {
         'user_form': user_form,
-        'prof_form': prof_form,
+        'profile_form': profile_form,
         'posts': posts,
 
     }
     return render(request, 'instagram/profile.html', params)
     
 @login_required()
-def user_profile(request, username):
+def update_profile(request, username):
     current_user=request.user.profile
 
-    user_prof = get_object_or_404(User, username=username)
-    if request.user == user_prof:
+    user_profile = get_object_or_404(User, username=username)
+    if request.user == user_profile:
         return redirect('profile', username=request.user.username)
 
     profile1=Profile.objects.get(user=current_user.user)
    
-    user_posts = user_prof.profile.posts.all()
+    user_posts = user_profile.profile.posts.all()
     
-    followers = Follow.objects.filter(followed=user_prof.profile)
+    followers = Follow.objects.filter(followed=user_profile.profile)
     follow_status = None
     for follower in followers:
         if request.user.profile == follower.follower:
@@ -160,7 +159,7 @@ def user_profile(request, username):
         else:
             follow_status = False
     params = {
-        'user_prof': user_prof,
+        'user_profile': user_profile,
         'user_posts': user_posts,
         'followers': followers,
         'follow_status': follow_status,
