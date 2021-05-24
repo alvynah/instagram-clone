@@ -50,3 +50,12 @@ a.btn.btn-sm.editProfile.mr-3 {
 #overlay i {
     color: black;
 }
+
+#go-back {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+i.fa.fa-arrow-left {
+    font-size: 20px !important;
+}

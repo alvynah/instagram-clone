@@ -45,8 +45,8 @@
 
                         <div id="overlay" class="text">
                             <i class="fas fa-heart " style="font-size: 18 "></i>
-                            <span>{{image.likes.count}}</span>
-                            <i class="fas fa-comment ml-4 "></i> <span>{{image.comments.count}}</span>
+                            <span>{{image.likes.count}} like{{image.likes.count|pluralize}} </span>
+                            <i class="fas fa-comment ml-4 "></i> <span>{{image.comments.count}} comment{{image.comments.count|pluralize}}</span>
                         </div>
 
                     </div>

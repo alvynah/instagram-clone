@@ -95,6 +95,8 @@ def like_post(request,post_id):
 
 @login_required
 def search_results(request):
+    posts=Post.objects.all()
+
     if 'search_profile' in request.GET and request.GET["search_profile"]:
         search_term = request.GET.get("search_profile")
         searched_profiles = Profile.search_profile(search_term)
@@ -103,7 +105,7 @@ def search_results(request):
         return render(request, 'instagram/search_results.html', {"message":message,"profiles": searched_profiles})
     else:
         message = "You haven't searched for any profile"
-    return render(request, 'instagram/search_results.html', {'message': message})
+    return render(request, 'instagram/search_results.html', {'message': message,'posts':posts})
 
 @login_required()
 def profile(request, username):
