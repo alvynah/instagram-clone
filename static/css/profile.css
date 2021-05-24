@@ -15,3 +15,8 @@
 .profileImages img {
     height: 350px;
 }
+
+a.btn.btn-sm.editProfile.mr-3 {
+    background-color: transparent;
+    border: 1px solid grey;
+}

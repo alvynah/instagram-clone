@@ -11,8 +11,8 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="media-body">
-                            <div class="account-heading"><span class="mr-3 text-secondary username">{{ user.username}}</span>
-                                <a class="btn btn-sm btn-outline-secondary mr-3" data-toggle="modal" data-target=".bd-example-modal-md"><strong>Edit Profile</strong></a>
+                            <div class="account-heading"><span class="mr-3  username"><strong>{{ user.username}}</strong></span>
+                                <a class="btn btn-sm editProfile  mr-3" data-toggle="modal" data-target=".bd-example-modal-md"><span style="color:black;"><strong>Edit Profile</strong></span></a>
                                 <a class="mt-3" data-toggle="modal" data-target="#ModalCenter"><i class="fa fa-cog mt-3"
                                         id="cog"></i></a>
                             </div>
@@ -22,8 +22,8 @@
                                 <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
                                 <span class="mr-5"> <strong>{{ user.profile.followed.count }}</strong> following</span>
                             </div>
-                            <h5>{{ user.profile.name }}</h5>
-                            <p class="text-secondary">{{ user.profile.bio }}</p>
+                            <h5><strong>{{ user.profile.name }}</strong></h5>
+                            <p><i class="fa fa-quote-left"></i> {{user.profile.bio}} <i class="fa fa-quote-right"></i></p>
                         </div>
                     </div>
                 </div>
@@ -55,16 +55,19 @@
         </div>
     </div>
     <hr class="mt-4">
-    <div class="card-columns">
+    <div class="card-columns cardprofileImages">
         {% for image in posts %}
-        <div class="card">
+        <div class="card" style="width:22rem;">
             <div class="card-body">
-                <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img">
-                <p id="overlay" class="text">
-                    <i class="fas fa-heart" style="font-size: 18"></i>
-                    <span>{{image.likes.count}}</span>
-                    <i class="fas fa-comment ml-4"></i> <span>{{image.comments.count}}</span>
-                </p>
+                <div class="profileImages">
+                    <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img">
+                    <p id="overlay" class="text">
+                        <i class="fas fa-heart" style="font-size: 18"></i>
+                        <span>{{image.likes.count}}</span>
+                        <i class="fas fa-comment ml-4"></i> <span>{{image.comments.count}}</span>
+                    </p>
+                </div>
+
 
             </div>
         </div>
