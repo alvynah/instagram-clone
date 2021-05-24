@@ -1,0 +1,17 @@
+.slideLogin {
+    background-image: url(../images/instaLogin.png);
+    background-size: 454px 618px;
+    margin-right: -15px;
+    margin-left: -35px;
+    flex-basis: 454px;
+    height: 618px;
+}
+
+#screenshots {
+    margin: 99px 0 0 135px;
+    position: relative;
+}
+
+#screenshots>div {
+    position: absolute;
+}
