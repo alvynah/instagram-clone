@@ -3,10 +3,10 @@ $(document).ready(function() {
 
     setInterval(function() {
         $('#screenshots > div:first')
-            .fadeOut(1000)
+            .fadeOut(2000)
             .next()
-            .fadeIn(1000)
+            .fadeIn(2000)
             .end()
             .appendTo('#screenshots');
-    }, 3000);
+    }, 4000);
 })

@@ -15,3 +15,31 @@
 #screenshots>div {
     position: absolute;
 }
+
+.loginForm form {
+    width: 80%;
+    padding: 20px;
+    padding-top: 0 !important;
+    border-radius: 6px;
+    float: center;
+    align-items: center;
+    font-size: 16px;
+    font-style: bold;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.loginForm input {
+    height: 15px;
+    margin-bottom: 1%;
+}
+
+.loginForm label {
+    margin-top: 1%;
+}
+
+.loginForm button {
+    width: 100%;
+    padding: 2%;
+    background-color: rgb(16, 182, 248, 0.6) !important;
+}
