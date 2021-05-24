@@ -1,0 +1,17 @@
+.account-img {
+    height: 150px;
+    width: 150px;
+}
+
+.media {
+    color: black;
+}
+
+.cardprofileImages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profileImages img {
+    height: 350px;
+}
