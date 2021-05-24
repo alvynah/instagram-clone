@@ -108,14 +108,26 @@ def search_results(request):
 
 @login_required()
 def profile(request, username):
+    current_user=request.user.profile
+ 
+    profile=Profile.objects.get(user=current_user.user)
     posts = request.user.profile.posts.all()
 
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and prof_form.is_valid():
-            user_form.save()
-            prof_form.save()
+            user = user_form.save(commit=False)
+            user.profile=profile
+            user.profile = request.user.profile
+            user.save()
+
+            prof = prof_form.save(commit=False)
+            prof.profile=profile
+            prof.profile = request.user.profile
+            prof.save() 
+
+
             return HttpResponseRedirect(request.path_info)
     else:
         user_form = UpdateUserForm(instance=request.user)
@@ -127,3 +139,32 @@ def profile(request, username):
 
     }
     return render(request, 'instagram/profile.html', params)
+    
+@login_required()
+def user_profile(request, username):
+    current_user=request.user.profile
+
+    user_prof = get_object_or_404(User, username=username)
+    if request.user == user_prof:
+        return redirect('profile', username=request.user.username)
+
+    profile1=Profile.objects.get(user=current_user.user)
+   
+    user_posts = user_prof.profile.posts.all()
+    
+    followers = Follow.objects.filter(followed=user_prof.profile)
+    follow_status = None
+    for follower in followers:
+        if request.user.profile == follower.follower:
+            follow_status = True
+        else:
+            follow_status = False
+    params = {
+        'user_prof': user_prof,
+        'user_posts': user_posts,
+        'followers': followers,
+        'follow_status': follow_status,
+        'profile1':profile1,
+    }
+    print(followers)
+    return render(request, 'instagram/updated_profile.html', params)
