@@ -1,9 +1,9 @@
 {% extends 'instagram/base.html' %}{% load crispy_forms_tags %} {% block content %}{{block.super}}
 <div class="row index">
     <div class="col-md-1"></div>
-    <div class="col-md-7">
-        <div class="row">
-            <button class="btn btn-sm btn-outline-primary ml-4 mb-3" data-toggle="modal" data-target="#imageUpload">
+    <div class="col-md-6">
+        <div class="row" style="background-color:white;">
+            <button class="btn uploadButton ml-4 mb-3 mt-4" data-toggle="modal" data-target="#imageUpload">
                 Upload Image
             </button>
             <div class="modal fade" id="imageUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -15,7 +15,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body uploadForm">
                             <form action="" method="post" enctype="multipart/form-data" novalidate>
                                 {% csrf_token %} {{ form|crispy }}
                                 <button class="btn btn-sm btn-success">Upload</button>
@@ -25,32 +25,89 @@
                     </div>
                 </div>
             </div>
+            {%for profile in profiles%} {% if profile.user.profile.profile_pic %}
+            <a href="{%url 'user_profile' profile.user.username %}"><img src="{{profile.user.profile.profile_pic.url}}" style="width:70px;height:70px;" alt="none" class="rounded-circle border ml-3 mt-2 mb-2 mr-3"></a>{%endif%} {% endfor%}
+
+
         </div>
-        <div>
+        <div class="row mt-5">
+
+
+            {%for post in posts%}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <img src="{{post.user.profile_pic.url}}" class="rounded-circle border ml-3 mt-2  mr-3" alt="{{image.user.user.username}}" width="35" height="35">
+                    <a href="{% url 'user_profile' post.user.user.username  %}" class="mt-4 user"><span style="color:black;font-weight:bold"> {{post.user.user.username|title}}</span></a>
+                    <p class="text-muted ml-5 mr-3" style="font-style: italic;">#{{post.title}}</p>
+                </div>
+                <div class="card-body">
+                    <img src="{{post.image.url}}" class="card-img" style="width:100%;height:600px;">
+                    <p class="text-muted text-center">{{post.description}}<br><span style="font-size:7px;"> Posted: {{post.created_at}}</span><br>
+                        <span class="likeCommentButton ml-4 text-centre">
+                            <a href="{% url 'LikePost' post_id=post.id %}"> <button type="submit" name="post_id" value={{post.id}}
+                                    class="btn"><i class="fa fa-heart"></i></h1>
+                                </button></a>
+                            <a href="{% url 'comment' post_id=post.id %}"><button class="btn " type="submit"><i class="fa fa-comment"
+                                        aria-hidden="true"></i> </button></a>
+                        
+                        </span>
+                    </p>
+
+
+                </div>
+
+                <span class="ml-4 mb-1"><strong>{{post.likes.count}} like{{post.likes.count|pluralize}}</strong><span>  <strong>{{post.comments.count}} comment{{post.comments.count|pluralize}}</strong></span></span>
+                <span class="text-muted ml-4 viewall" style="font-size:10px;"><a href="{% url 'comment' post_id=post.id %}"><span style="color:grey;"> View all {{post.comments.count}} comment{{post.comments.count|pluralize}}</span></a>
+                <hr>
+                <div class="ml-4" style="color:black;font-size:16px">
+                    {% for comment in post.comments.all|slice:'3' %}
+
+                    <strong>{{comment.user.user.username}}:</strong><span style="color: grey;"> {{comment.comment}}</span>
+                    <p style="color:grey;font-size:10px">{{comment.created_at | timesince}} ago</p>
+                    <hr> {% endfor %}
+                </div>
+            </div>
+
+            {%endfor%}
+
         </div>
     </div>
+    <div class="col-md-4 profilesIndex">
+        <div class="sticky-top">
+            <div class="row">
+                <div class="col-xs-3 mt-3">
+                    {% if user.profile.profile_pic %}
+                    <img src="{{user.profile.profile_pic.url}}" style="width:40px;height:40px;" alt="none" class="rounded-circle border ml-3 mt-2  mr-3">{%endif%}
+                </div>
+                <div class="col-xs-3 mt-4">
+                    <a href="{%url 'user_profile' user.username %}">
+                        <p class="account-heading" style="color:black;font-weight: bold;">{{ user.username }}
+                            <br> <span class="text-secondary" style="font-size:10px"> {{user.profile.name}}</span>
+                        </p>
+                    </a>
+                </div>
+
+            </div>
+            <p class="text-muted">Suggestions for you :</p>
+            <hr> {%for profile in profiles%}
+
+            <div class="row">
+                <div class="col-xs-3 mt-3">
+                    {% if profile.user.profile.profile_pic %}
+                    <img src="{{profile.user.profile.profile_pic.url}}" style="width:40px;height:40px;" alt="none" class="rounded-circle border ml-3 mt-2  mr-3">{%endif%}
+                </div>
+                <div class="col-xs-3 mt-4">
+                    <a href="{%url 'user_profile' profile.user.username %}">
+                        <p class="account-heading" style="color:black;font-weight: bold;">{{ profile.user.username }}
+                        </p>
+                    </a>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
 </div>
-<h1 class="text-center"> Welcome to Instagram</h1>
-{%for post in posts%}
-<h1>{{post.title}}</h1>
-<h1>{{post.description}}</h1>
-<h1>{{post.likes.count}} likes</h1>
-<h1>{{post.user.user.username}}</h1>
-<h1>{{post.created_at}}</h1>
 
-<img src="{{post.image.url}}" class="card-img" style="width:200px;height:200px;">
-<form action="{% url 'LikePost' post_id=post.id %}">
-    {% csrf_token %}
-    <button type="submit" name="post_id" value={{post.id}} style="border: 0px; background-color: transparent; margin-bottom: 1rem;"><i class="far fa-heart"></i></button>
-</form>
-
-<button class="btn btn-sm" type="submit"><a href="{% url 'comment' post_id=post.id %}"><i
-            class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
-    </a></button> {% for comment in post.comments.all %}
-<p><strong>{{comment.user.user.username}}:</strong> {{comment.comment}}</p>
-<p>{{comment.created_at | timesince}}</p>
-<hr> {% endfor %} {%endfor%}
-
-
-</div>
 {%endblock %}

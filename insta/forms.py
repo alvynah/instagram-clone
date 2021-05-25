@@ -14,7 +14,7 @@ class SignUpForm(UserCreationForm):
 class UploadImageForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('image','title', 'description') 
+        fields = ('image', 'title', 'description') 
 
 class CommentForm(forms.ModelForm):
     class Meta:
