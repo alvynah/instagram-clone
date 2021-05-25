@@ -24,7 +24,7 @@ class PostTestClass(TestCase):
         self.user=User(username='alvynah')
         self.user.save()
         self.profile=Profile(user=self.user,name='vee',bio='vee in the house',profile_pic='default.png')
-        self.post=Post(image='default.png',title='food',description='islife',user=self.profile)
+        self.post=Post(id=1,image='default.png',title='food',description='islife',user=self.profile)
     def tearDown(self):
 
         Post.objects.all().delete()
@@ -35,17 +35,10 @@ class PostTestClass(TestCase):
     def test_save_post(self):
         saved_post=Post.objects.all().delete()
         self.assertTrue((len(saved_post))>0)
+    def test_delete_post(self):
+        self.post.delete_post()
+        deleted_post = Post.objects.all()
+        self.assertTrue(len(deleted_post)==0)  
+
     
 
-
-
-
-#     def test_save_image(self):
-#         self.image_test.save_image()
-#         images = Post.objects.all()
-#         self.assertTrue(len(images) > 0)
-
-#     def test_delete_image(self):
-#         self.image_test.delete_image()
-#         after = Profile.objects.all()
-#         self.assertTrue(len(after) < 1) 
