@@ -8,11 +8,7 @@ from .forms import *
 from .models import Post, Comment, Profile, Follow
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
-
-
-
-
-
+from .email import send_welcome_email
 
 
 # Create your views here.
@@ -24,6 +20,13 @@ def signup_view(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+
+            name=form.cleaned_data['fullname']
+            email=form.cleaned_data['email']
+            recipient=UserSubscribe(name=name,email=email)
+            recipient.save()
+            send_welcome_email(name,email)
+
             user = authenticate(username=username, password=password)
 
             login(request, user)
@@ -45,6 +48,8 @@ def welcome(request):
             post=form.save(commit=False)
             post.user=request.user.profile
             post.save()
+
+
             return HttpResponseRedirect(request.path_info)
 
     else:
