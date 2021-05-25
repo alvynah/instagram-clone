@@ -23,8 +23,7 @@ def signup_view(request):
 
             name=form.cleaned_data['fullname']
             email=form.cleaned_data['email']
-            recipient=UserSubscribe(name=name,email=email)
-            recipient.save()
+            
             send_welcome_email(name,email)
 
             user = authenticate(username=username, password=password)
