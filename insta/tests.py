@@ -19,17 +19,26 @@ class ProfileTestClass(TestCase):
         self.profile.save_profile()
         profile_saved = Profile.objects.all()
         self.assertTrue(len(profile_saved) > 0)
+class PostTestClass(TestCase):
+    def setUp(self):
+        self.user=User(username='alvynah')
+        self.user.save()
+        self.profile=Profile(user=self.user,name='vee',bio='vee in the house',profile_pic='default.png')
+        self.post=Post(image='default.png',title='food',description='islife',user=self.profile)
+    def tearDown(self):
+
+        Post.objects.all().delete()
+        Profile.objects.all().delete()
+        User.objects.all().delete()
+    def test_insatance(self):
+        self.assertTrue(isinstance(self.post, Post))
+    def test_save_post(self):
+        saved_post=Post.objects.all().delete()
+        self.assertTrue((len(saved_post))>0)
+    
 
 
-# class TestPost(TestCase):
-#     def setUp(self):
-#         self.profile_test = Profile(name='charles', user=User(username='mikey'))
-#         self.profile_test.save()
 
-#         self.image_test = Post(image='default.png', name='test', caption='default test', user=self.profile_test)
-
-#     def test_insatance(self):
-#         self.assertTrue(isinstance(self.image_test, Post))
 
 #     def test_save_image(self):
 #         self.image_test.save_image()

@@ -52,13 +52,13 @@ class Post(models.Model):
         '''
         ordering = ["-pk"]
 
-    def save_image(self):
+    def save_post(self):
         '''
         Method to save our images
         '''
         self.save()
 
-    def delete_image(self):
+    def delete_post(self):
         '''
         Method to delete our images
         '''
