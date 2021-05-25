@@ -66,7 +66,7 @@ def comment(request,post_id):
                         comment.post = post
                         comment.user = request.user.profile
                         comment.save()  
-                return redirect('welcome')
+                return HttpResponseRedirect(request.path_info)
         else:
                 form = CommentForm()
         params = {
@@ -91,7 +91,7 @@ def like_post(request,post_id):
     else:
         post.likes.add(user.user)
         is_liked=True
-    return HttpResponseRedirect(reverse('welcome'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def search_results(request):
